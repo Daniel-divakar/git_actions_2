@@ -8,3 +8,8 @@ jobs:
     steps:
        - name: Print build
          run: echo "this is my first build"
+  build2:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Print build
+         run: echo "this is my 2nd build"
