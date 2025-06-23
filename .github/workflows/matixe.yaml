@@ -1,40 +1,16 @@
-name: CI
+name: build-matrix
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-and-test:
-    # run each combination of OS x Node version in parallel
-    runs-on: ${{ matrix.os }}
+  say-hello:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [12.x, 14.x, 16.x]
-      fail-fast: false      # continue all jobs even if one fails
-      max-parallel: 6       # cap parallel executions
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install deps
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-      - name: Upload coverage report
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-${{ matrix.os }}-node${{ matrix.node-version }}
-          path: coverage/
+      - name: Echo OS version
+        run: echo "Running on: ${{ matrix.os }}"
