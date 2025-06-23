@@ -13,4 +13,4 @@ jobs:
 
     steps:
       - name: Echo OS version
-        run: echo "Running on: ${{ matrix.os }}"
+        run: grep 'PRETTY_NAME' /etc/os-release
