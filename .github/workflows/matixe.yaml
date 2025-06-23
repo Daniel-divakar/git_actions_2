@@ -1,16 +1,15 @@
-name: build-matrix
+# .github/workflows/ci.yml
 
-on:
-  workflow_dispatch:
+name: My First CI
+
+on: [push]   # 👈 When to run
 
 jobs:
-  say-hello:
-    strategy:
-      matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
-
+  build:     # 👈 Job name
+    runs-on: ubuntu-latest  # 👈 Environment (runner)
     steps:
-      - name: Echo OS version
-        run: grep 'PRETTY_NAME' /etc/os-release
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a command
+        run: echo "Hello from GitHub Actions!"
