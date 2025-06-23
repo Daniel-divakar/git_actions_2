@@ -1,34 +1,18 @@
 name: first job
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
+      username:
+        description: 'A username passed from the caller workflow'
+        default: 'john-doe'
+        required: false
         type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
 
 jobs:
-  print-tag:
+  print-username:
     runs-on: ubuntu-latest
-    if: ${{ inputs.print_tags }} 
+
     steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+      - name: Print the input name to STDOUT
+        run: echo The username is ${{ inputs.username }}
